@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Extension Permission Inventory \u2014 TPCI",
+  "version": "1.0.0",
+  "description": "See what your extensions can actually do, ranked by access level. No scanning, no verdicts \u2014 just your permissions, sorted.",
+  "permissions": [
+    "management"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16-light-theme.png",
+      "48": "icons/icon48-light-theme.png",
+      "128": "icons/icon128-light-theme.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16-light-theme.png",
+    "48": "icons/icon48-light-theme.png",
+    "128": "icons/icon128-light-theme.png"
+  }
+}

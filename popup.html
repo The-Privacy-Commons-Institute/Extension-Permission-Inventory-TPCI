@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --bg: #0e0d0b;
+    --bg-raised: #17150f;
+    --border: #2b2720;
+    --border-soft: #241f19;
+    --text: #ece6dc;
+    --text-dim: #c8c1b4;
+    --text-mute: #8c8377;
+    --accent: #e2664a;
+    --gold: #c9a86a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    width: 420px;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+  }
+  .header {
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  h1 { font-size: 19px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { font-size: 12.5px; color: var(--text-mute); line-height: 1.4; margin: 0; }
+  .disclaimer {
+    margin: 12px 18px;
+    padding: 10px 12px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.45;
+  }
+  .disclaimer b { color: var(--text); }
+  .list { padding: 4px 18px 18px; max-height: 440px; overflow-y: auto; }
+  .ext-row {
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: var(--bg-raised);
+  }
+  .ext-summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 12px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .ext-summary::-webkit-details-marker { display: none; }
+  .tier-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+  .tier-ReviewCarefully { background: rgba(226,102,74,0.18); color: var(--accent); }
+  .tier-WorthChecking { background: rgba(201,168,106,0.16); color: var(--gold); }
+  .tier-MinorAccess { background: rgba(140,131,119,0.18); color: var(--text-dim); }
+  .tier-MinimalAccess, .tier-None { background: rgba(140,131,119,0.08); color: var(--text-mute); }
+  .ext-name {
+    font-weight: 600;
+    font-size: 13.5px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .ext-name.disabled { color: var(--text-mute); font-style: italic; }
+  .chevron { color: var(--text-mute); font-size: 11px; transition: transform 0.15s; flex-shrink: 0; }
+  details[open] .chevron { transform: rotate(90deg); }
+  .ext-detail {
+    padding: 0 12px 12px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .reason {
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .reason:last-child { border-bottom: none; }
+  .reason-tier {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    width: 52px;
+    padding-top: 1px;
+  }
+  .reason-text { color: var(--text-dim); }
+  .reason-perm { font-family: 'JetBrains Mono', monospace; color: var(--text); font-size: 11px; }
+  .no-perms { font-size: 12px; color: var(--text-mute); padding: 10px 0; font-style: italic; }
+  .footer {
+    padding: 12px 18px 16px;
+    border-top: 1px solid var(--border-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .empty-state { padding: 30px 18px; text-align: center; color: var(--text-mute); font-size: 13px; }
+
+  .reason-section-header {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding: 6px 0 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="eyebrow"><span class="dot"></span>TPCI &middot; PERMISSION INVENTORY</div>
+    <h1>What can your extensions actually do?</h1>
+    <p class="sub">Sorted by what they can access — worst first. This is not a malware scan.</p>
+  </div>
+
+  <div class="disclaimer">
+    <b>This tool makes no judgment about whether an extension is safe.</b>
+    It only reads the permissions each extension has declared, and orders them
+    so the broadest access is easiest to spot. Whether that access makes sense
+    is a call only you can make — you know what each extension is supposed to do.
+    No data leaves your device. Built by
+    <a href="https://tpc.institute" target="_blank" style="color:var(--text-dim);">The Privacy Commons Institute</a>
+    as a companion to our research on malicious Chrome extension persistence.
+  </div>
+
+  <div id="list" class="list"></div>
+
+  <div class="footer">No network access &middot; <a href="https://tpc.institute" target="_blank" style="color:var(--text-mute);text-decoration:none;border-bottom:1px solid var(--border);">tpc.institute</a></div>
+
+  <script src="permission-tiers.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
